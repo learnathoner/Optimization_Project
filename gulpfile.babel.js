@@ -47,12 +47,15 @@ gulp.task('lint', () =>
 
 // Optimize images
 gulp.task('images', () =>
-  gulp.src('app/images/**/*')
+  gulp.src([
+    'app/images/**/*',
+    'app/views/images/**/*'
+  ], {base: 'app/'})
     .pipe($.cache($.imagemin({
       progressive: true,
       interlaced: true
     })))
-    .pipe(gulp.dest('dist/images'))
+    .pipe(gulp.dest('dist'))
     .pipe($.size({title: 'images'}))
 );
 
@@ -85,8 +88,9 @@ gulp.task('styles', () => {
   // For best performance, don't add Sass partials to `gulp.src`
   return gulp.src([
     'app/styles/**/*.scss',
-    'app/styles/**/*.css'
-  ])
+    'app/styles/**/*.css',
+    'app/views/**/*.css'
+  ], {base: 'app/'})
     .pipe($.newer('.tmp/styles'))
     .pipe($.sourcemaps.init())
     .pipe($.sass({
@@ -98,7 +102,7 @@ gulp.task('styles', () => {
     .pipe($.if('*.css', $.cssnano()))
     .pipe($.size({title: 'styles'}))
     .pipe($.sourcemaps.write('./'))
-    .pipe(gulp.dest('dist/styles'))
+    .pipe(gulp.dest('dist'))
     .pipe(gulp.dest('.tmp/styles'));
 });
 
@@ -110,20 +114,21 @@ gulp.task('scripts', () =>
       // Note: Since we are not using useref in the scripts build pipeline,
       //       you need to explicitly list your scripts here in the right order
       //       to be correctly concatenated
-      './app/scripts/main.js'
+      './app/scripts/perfmatters.js',
+      './app/views/js/*.js'
       // Other scripts
-    ])
+    ], {base: 'app/'})
       .pipe($.newer('.tmp/scripts'))
       .pipe($.sourcemaps.init())
       .pipe($.babel())
       .pipe($.sourcemaps.write())
       .pipe(gulp.dest('.tmp/scripts'))
-      .pipe($.concat('main.min.js'))
+      // .pipe($.concat('main.min.js'))
       .pipe($.uglify({preserveComments: 'some'}))
       // Output files
       .pipe($.size({title: 'scripts'}))
       .pipe($.sourcemaps.write('.'))
-      .pipe(gulp.dest('dist/scripts'))
+      .pipe(gulp.dest('dist'))
       .pipe(gulp.dest('.tmp/scripts'))
 );
 
@@ -178,7 +183,7 @@ gulp.task('serve', ['scripts', 'styles'], () => {
 });
 
 // Build and serve the output from the dist build
-gulp.task('serve:dist', ['default'], () =>
+gulp.task('serve:dist', () =>
   browserSync({
     notify: false,
     logPrefix: 'WSK',
