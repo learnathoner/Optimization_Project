@@ -4,7 +4,7 @@ Welcome to my Udacity FEND project, where we apply best practices to achieve a P
 
 ### Use
 
-To see access the website, just use this link here:
+To see access the website, just use this link here: https://learnathoner.github.io/Optimization_Project/
 
 ### Process / Tools Used
 
