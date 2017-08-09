@@ -26,5 +26,6 @@ The optimizations were made using:
   * Image optimization
   * Minifying and inlining
 * **JS**
-  * function changePizzaSizes - Removed layout calculations from loop, instead calculating size once and applying to every element.
-  * function updatePositions: Removed style calculation from updatePositions
+  * **function changePizzaSizes** - Removed layout calculations from loop, instead calculating size once and applying to every element.
+  * **function updatePositions** - Removed style calculation from updatePositions
+  * **document.addEventListener('DOMContentLoaded')** - Lowered background ".mover" count from 200 to 24 to match visible amount.
