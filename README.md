@@ -27,5 +27,8 @@ The optimizations were made using:
   * Minifying and inlining
 * **JS**
   * **function changePizzaSizes** - Removed layout calculations from loop, instead calculating size once and applying to every element.
-  * **function updatePositions** - Removed style calculation from updatePositions
+  * **function updatePositions**
+    * Removed style calculation from updatePositions
+    * Added movement calculation to separate loop, since there are only 5 options and it was being calculated for every pizza container
   * **document.addEventListener('DOMContentLoaded')** - Lowered background ".mover" count from 200 to 24 to match visible amount.
+  * Changed querySelectorAll's to getElementsByClassName
